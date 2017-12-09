@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--order information-->
+<div itemscope itemtype="http://schema.org/Order">
+    <h1 itemprop="name"><span><mark><i>{{ticketorder.firstName}}</i></mark></span>, here are the details of your order</h1>
+
+<ul class="orderInfo">
+    <h3><i>Personal Information</i></h3>
+    <li itemprop="orderNumber"><span><b>Order Number: </b></span>{{ticketorder.orderNumber}}</li>
+    <li itemprop="customer" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="givenName"><span><b>First Name: </b></span>{{ticketorder.firstName}}</span>
+        <br/>
+        <span itemprop="familyName"><span><b>Last Name: </b></span>{{ticketorder.lastName}}</span>
+    </li>
+
+    <h3><i>Shipping Information</i></h3>
+    <div itemprop="orderedItem" itemscope itemtype="http://schema.org/PostalAddress">
+        <li itemprop="streetAddress"><span><b>Shipping Address: </b></span>{{ticketorder.shippingAddress}}</li>
+        <li itemprop="telephone"><span><b>Phone: </b></span>{{ticketorder.phoneNumber}}</li>
+        <li itemprop="email"><span><b>Email:</b></span>{{ticketorder.email}}</li>
+        <li itemprop="postalCode"><span><b>Zip Code: </b></span>{{ticketorder.zipcode}}</li>
+    </div>
+
+    <h3><i>Payment Information</i></h3>
+    <li itemprop="paymentMethod"><span><b>Payment Method: </b></span>{{ticketorder.paymentMethod}}</li>
+    <li itemprop="paymentMethodId"><span><b>Card Number: </b></span>{{ticketorder.cardNumber}}</li>
+    <li><span><b>CVV: </b></span>{{ticketorder.cvv}}</li>
+    <li><span><span><b>Exp Date: </b></span>{{ticketorder.expDate}}</span></li>
+    <li itemprop="billingAddress"><span><b>Billing Address: </b></span>{{ticketorder.billingAddress}}</li>
+</ul>
+</div>
+<div>
+<ul class="ticketInfo">
+    <div itemscope itemtype="http://schema.org/SportsEvent">
+    <h3  itemprop="name"><i>Ticket Information</i></h3>
+        <li><b>Game Date: </b><span itemprop="startDate">{{ticketorder.date}}</span></li>
+    <li itemprop="homeTeam"><b>Teams: </b>{{ticketorder.teams}}</li>
+    <li itemprop="location" itemscope itemtype="http://schema.org/Place"><b>Location: </b><span itemprop="address">{{ticketorder.location}}</span></li>
+    </div>
+
+    <div itemscope itemtype="http://schema.org/Seat">
+    <li itemprop="seatSection"><span><b>Section: </b></span>{{ticketorder.section}}</li>
+    <li itemprop="seatRow"><span><b>Row: </b></span>{{ticketorder.row}}</li>
+        <li itemscope itemtype="http://schema.org/Quantity"><b>Quantity: </b><span itemprop="name">{{ticketorder.quantity}}</span></li>
+    <li><span><b>price: </b></span>{{ticketorder.price}}</li>
+    <li><span><b>Total Price($): </b></span><span id="totalprice"></span></li>
+    <script>
+        document.getElementById("totalprice").innerHTML = {{ticketorder.quantity}} * {{ticketorder.price}}
+    </script>
+</ul>
+</div>
+
+<!--update the order-->
+<h2>Update your Order</h2>
+<form class="order-updater" method="patch">
+
+    <ul>
+        <li>
+            <label>Email
+            <input type="email" name="email">
+            </label>
+        </li>
+        <li>
+            <label>Phone Number
+            <input type="text" name="phoneNumber">
+            </label>
+        </li>
+        <li>
+            <label>Shipping Address</label>
+            <br>
+            <textarea type="text" name="shippingAddress"></textarea>
+
+        </li>
+        <li>
+            <label>Zip Code
+            <input type="text" name="zipcode">
+            </label>
+        </li>
+    </ul>
+    <input class="update" type="submit" value="Update Order"  style="width: 150px; background-color: MediumSeaGreen; color: white">
+    <!-- embedded JavaScript for submitting PATCH instead of POST -->
+    <script>
+    var form = document.querySelector('form.order-updater');
+    var button = document.querySelector('form.order-updater input.update');
+
+    button.addEventListener('click', function (event) {
+      event.preventDefault();
+      var request = new XMLHttpRequest();
+      request.open('PATCH', window.location.pathname);
+      request.onreadystatechange = function () {
+        if (XMLHttpRequest.DONE === request.readyState
+            && 200 === request.status) {
+          window.location.reload(true);
+        }
+      }
+      request.send(new FormData(form));
+    }, false);
+  </script>
+</form>
+
+<!--back to the index page-->
+<a href="{{ url_for('ticketorderlist')}}" rel="collection">
+    <button  style="width: 150px; background-color: DodgerBlue; color: white">&lt&lt Back to the Order List</button>
+</a>
+</body>
+</html>

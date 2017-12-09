@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    </style>
+</head>
+<body>
+
+
+
+<h1><i>Zhepu Seats</i></h1>
+
+<!--Sports Section -->
+<div itemscope itemtype="http://schema.org/SportsOrganization">
+    <h3 itemprop="legalName">NBA</h3>
+    <table class="team" itemprop="member" itemscope itemtype="http://schema.org/SportsTeam">
+    <tr>
+        <td  itemprop="name"><a href="{{ url_for('gameinfo')}}" rel="contents">Atlanta Hawks</a></td>
+        <td><a href="">Boston Celtics</a></td>
+        <td><a href="">Brooklyn Nets</a></td>
+        <td><a href="">Brooklyn Nets</a></td>
+        <td><a href="">Charlotte Hornets</a></td>
+        <td><a href="">Chicago Bulls</a></td>
+
+    </tr>
+    <tr>
+
+        <td><a href="">Cleveland Cavaliers</a></td>
+        <td><a href="">Dallas Mavericks</a></td>
+        <td><a href="">Denver Nuggets</a></td>
+        <td><a href="">Detroit Pistons</a></td>
+        <td><a href="">Golden State Warriors</a></td>
+        <td><a href="">Houston Rockets</a></td>
+    </tr>
+    <tr>
+
+        <td><a href="">Indiana Pacers</a></td>
+        <td><a href="">Los Angeles Clippers</a></td>
+        <td><a href="">Los Angeles Lakers</a></td>
+        <td><a href="">Memphis Grizzlies</a></td>
+        <td><a href="">Miami Heat</a></td>
+        <td><a href="">Milwaukee Bucks</a></td>
+    </tr>
+    <tr>
+
+        <td><a href="">Minnesota Timberwolves</a></td>
+        <td><a href="">New Orleans Pelicans</a></td>
+        <td><a href="">New York Knicks</a></td>
+        <td><a href="">Oklahoma City Thunder</a></td>
+        <td><a href="">Orlando Magic</a></td>
+        <td><a href="">Philadelphia 76ers</a></td>
+    </tr>
+    <tr>
+
+        <td><a href="">Phoenix Suns</a></td>
+        <td><a href="">Portland Trail Blazers</a></td>
+        <td><a href="">San Antonio Spurs</a></td>
+        <td><a href="">Toronto Raptors</a></td>
+        <td><a href="">Utah Jazz</a></td>
+        <td><a href="">Washington Wizards</a></td>
+    </tr>
+</table>
+
+    <!--
+    <h3 itemprop="legalName">NBL</h3>
+    <h3 itemprop="legalName">NHL</h3>
+    <h3 itemprop="legalName">NCAA</h3>
+    -->
+</div>
+
+<div itemscope itemtype="http://schema.org/Order">
+    <h3 itemprop="name">Order Information</h3>
+    <table class="orderList">
+    <tr>
+        <th>OrderNumber</th>
+        <th>OrderDetails</th>
+        <th>Quantity</th>
+    </tr>
+    {% for ticketorder_id, ticketorder in ticketorders %}
+    <tr>
+        <td itemprop="orderNumber">{{ticketorder.orderNumber}}</td>
+        <td itemprop="orderedItem"><a href="{{ url_for('ticketorder', ticketorder_id=ticketorder_id) }}" rel="about">{{ticketorder.teams}}</a>
+        </td>
+        <td itemprop="acceptedOffer">{{ticketorder.quantity}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+</div>
+
+</body>
+</html>

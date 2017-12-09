@@ -1,0 +1,23 @@
+{ "games":
+  { "hdjs23" :
+    { "date" : "2017-11-05T15:00",
+      "teams" : "Atlanta Hawks at Cleveland Cavaliers",
+      "location" : "Quicken Loans Arena, Cleveland, OH"
+    },
+    "ghf23h" :
+    { "date" : "2017-11-06T19:30",
+      "teams" : "Boston Celtics at Atlanta Hawks",
+      "location" : "Philips Arena, Atlanta, GA"
+    },
+    "ushs45" :
+    { "date" : "2017-11-10T19:00",
+      "teams" : "Atlanta Hawks at Detroit Pistons",
+      "location" : "Little Caesars Arena, Detroit, MI"
+    },
+    "hdh34h" :
+    { "date" : "2017-11-11T19:00",
+      "teams" : "Atlanta Hawks at Washington Wizards",
+      "location" : "Capital One Arena, Washington, DC"
+    }
+  }
+}

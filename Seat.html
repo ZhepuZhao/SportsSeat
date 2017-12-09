@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    </style>
+</head>
+<body>
+<!--seat metadata is here -->
+
+
+<div>
+
+    <form class="order-creator" action="{{ url_for('ticketorderlist') }}" method="post">
+
+        <div itemscope itemtype="http://schema.org/Seat">
+            <h1 itemprop="name"><i><mark>Please choose the seat you want</mark></i></h1>
+            <table class="seat">
+                <tr>
+                    <th><h2>seat info</h2></th>
+                    <th><h2>Quantity</h2></th>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="seatinfo">
+                            <tr>
+                                <td>Section</td>
+                                <td>Row & Price</td>
+                            </tr>
+                            {% for seat_id, seat in seats %}
+                            <tr>
+                                <td itemprop="seatSection"><input type="radio" name="section" value="{{seat.section}}" checked>
+                                    {{seat.section}}
+                                </td>
+                                <td>
+                                    <input type="radio" name="row" value="{{seat.row}}" checked><span itemprop="seatRow">{{seat.row}}</span>, $
+                                    <input name="price" value="{{seat.price}}" style="width: 20px">for each
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                    <td>
+                        <table class="ticketquantity">
+                            <tr>
+                                <select itemscope itemtype="http://schema.org/Quantity"
+                                        name="quantity">
+                                {% for value in quantities %}
+                                    <option  itemprop="name">{{value}}</option>
+                                {% endfor %}
+                                </select>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <br>
+
+        <h1 itemprop="name"><i><mark>Fill out the form to place your order</mark></i></h1>
+
+        <div>
+            <table>
+                <tr>
+                    <th><h2>The information of the game you chose just now</h2></th>
+                    <th><h2>Basic Information</h2></th>
+                </tr>
+                <tr>
+                    <td>
+                        Game Date: <input type="text" name="date" value="{{game.date}}" style="width: 300px">
+                        <br>
+                        Location: <input type="text" name="location" value="{{game.location}}" style="width: 300px">
+                        <br>
+                        Teams: <input type="text" name="teams" value="{{game.teams}}"  style="width: 300px">
+                    </td>
+                    <td>
+                        First Name*:
+                        <input class="name" type="text" name="firstName">
+                        <br>
+                        Last Name*:
+                        <input class="name" type="text" name="lastName">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <h2>Payment Information</h2>
+                    </th>
+                    <th>
+                        <h2>Shipping Information</h2>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        Payment Method:
+                        <input class="payment" type="radio" name="paymentMethod" value="Creadit Card" checked>Credit Card
+                        <input class="payment" type="radio" name="paymentMethod" value="Debit Card">Debit Card
+                        <input class="payment" type="radio" name="paymentMethod" value="PayPal">PayPal
+                        <br>
+                        Card Number*:
+                        <input class="payment" type="text" name="cardNumber" required>
+                        <br>
+                        CVV*:
+                        <input class="payment" type="text" name="cvv" required>
+                        <br>
+                        Exp Date*:
+                        <input class="payment" type="text" name="expDate" required>
+                        <br>
+                        Billing Address*:
+                        <input class="payment" type="text" name="billingAddress" required>
+                        <br>
+                    </td>
+                    <td>
+                        Address:
+                        <input class="address" type="text" name="shippingAddress">
+                        <br>
+                        Zip code:
+                        <input class="address" type="text" name="zipcode">
+                        <br>
+                        Phone Number:
+                        <input class="contact" type="text" name="phoneNumber">
+                        <br>
+                        Email:
+                        <input class="email" type="email" name="email">
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+
+        <input class="create" type="submit" value="Place new order" style="width: 150px; background-color: MediumSeaGreen; color: white">
+    </form>
+</div>
+<!--back to the previous step-->
+<a href="{{ url_for('gameinfo')}}" rel="prev">
+    <button style="width: 150px; background-color: DodgerBlue; color: white">&lt&lt Previous step</button>
+</a>
+</body>
+</html>

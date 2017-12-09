@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    </style>
+</head>
+
+<div>
+<h1>Welcome to support Atlanta Hawks</h1>
+<h2>Choose your tickets below</h2>
+<table class="gameInfo">
+    <tr>
+        <th>Date</th>
+        <th>Teams</th>
+        <th>Location</th>
+    </tr>
+    {% for game_id, game in games %}
+    <tr itemscope itemtype="http://schema.org/SportsEvent">
+        <td>
+            <span itemprop="startDate">{{game.date}}</span>
+        </td>
+        <td><span itemprop="name">{{game.teams}}</span></td>
+        <td>
+            <span itemprop="location" itemscope itemtype="http://schema.org/Place">
+                <p itemprop="address">{{game.location}}</p>
+            </span>
+            <span>
+                <p>
+                    <button style="width: 150px; background-color: DodgerBlue; color: white">
+                        <a href="{{url_for('seatchoose', game_id=game_id)}}" rel="next" style="color: white"
+                           itemscope itemtype="http://schema.org/Property">
+                            <span itemprop="url">Choose Seats</span>
+                        </a>
+                    </button>
+                </span>
+            </span>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+<!--back to the previous step-->
+<a href="{{url_for('ticketorderlist')}}" rel="collection" itemprop="url">
+    <button  style="width: 150px; background-color: DodgerBlue; color: white">&lt&lt Previous step</button>
+</a>
+
+</body>
+</html>

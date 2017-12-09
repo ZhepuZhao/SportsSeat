@@ -1,0 +1,18 @@
+{ "seats":
+  { "hdjs23" :
+    { "section" : "103",
+      "row" : "Row A",
+      "price" : 100
+    },
+    "ghf23h" :
+    { "section" : "104",
+      "row" : "Row B",
+      "price" : 60
+    },
+    "ushs45" :
+    { "section" : "105",
+      "row" : "Row C",
+      "price" : 40
+    }
+  }
+}
